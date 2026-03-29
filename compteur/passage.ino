@@ -48,8 +48,8 @@ void envoyerCommande(String action) {
   if(WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     
-    // On construit l'URL : http://.../index.php?action=plus
-    String urlComplete = serveur + "?action=" + action ;
+
+    String urlComplete = serveur + "?action=" + action + "&id=" + WiFi.macAddress();
     
     http.begin(urlComplete); 
     int httpResponseCode = http.GET(); // On envoie la requête
