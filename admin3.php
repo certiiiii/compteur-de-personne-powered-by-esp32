@@ -97,10 +97,11 @@ $first  = $salles[0] ?? ["id" => 1, "nb_personnes" => 0, "name" => "—"];
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Présence</title>
 
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     min-height: 100vh;
@@ -109,138 +110,143 @@ $first  = $salles[0] ?? ["id" => 1, "nb_personnes" => 0, "name" => "—"];
     justify-content: center;
     gap: 24px;
     flex-wrap: wrap;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    font-family: system-ui, Arial, sans-serif;
-  }
-
-  /* ── Carte ── */
-  .card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 32px 28px;
-    width: 320px;
-    box-shadow: 0 12px 36px rgba(0,0,0,.2);
-    text-align: center;
-  }
-  .card h2 { font-size: 18px; color: #555; margin-bottom: 20px; letter-spacing: .3px; }
-
-  /* ── Compteur ── */
-  #count { font-size: 88px; font-weight: 700; color: #667eea; line-height: 1; margin: 16px 0; }
-
-  /* ── Boutons ── */
-  .btn-row { display: flex; justify-content: center; gap: 12px; margin-top: 16px; }
-  button {
-    border: none; border-radius: 10px; cursor: pointer; font-size: 16px;
-    padding: 11px 20px; transition: opacity .15s, transform .1s;
-  }
-  button:hover  { opacity: .88; }
-  button:active { transform: scale(.96); }
-  .btn-plus  { background: #4CAF50; color: #fff; font-size: 26px; padding: 12px 24px; }
-  .btn-moins { background: #f44336; color: #fff; font-size: 26px; padding: 12px 24px; }
-  .btn-main  { background: #667eea; color: #fff; }
-  .btn-ghost { background: #f0f0f0; color: #444; }
-
-  /* ── Select ── */
-  select {
-    width: 100%; padding: 9px 12px; border-radius: 8px;
-    border: 1px solid #ddd; font-size: 15px; cursor: pointer;
-    color: #333; background: #fafafa;
-  }
-
-  /* ── Formulaire ajout ── */
-  #form-add { margin-top: 16px; text-align: left; }
-  #form-add label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; }
-  #form-add input {
-    width: 100%; padding: 9px 10px; border: 1px solid #ddd;
-    border-radius: 8px; font-size: 14px; margin-bottom: 12px;
-  }
-  #form-msg { margin-top: 10px; font-size: 13px; }
-  .msg-ok  { color: #2e7d32; }
-  .msg-err { color: #c62828; }
-
-  /* ── Log ── */
-  #log-wrap { margin-top: 16px; max-height: 200px; overflow-y: auto; text-align: left; border-top: 1px solid #eee; padding-top: 10px; }
-  .log-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
-  .log-date { color: #aaa; font-size: 11px; flex: 0 0 auto; margin-right: 8px; }
-  .log-val  { font-weight: 700; color: #667eea; }
-  .empty    { color: #bbb; text-align: center; padding: 10px 0; font-size: 13px; }
-
-  .input {
-    width: 100%; padding: 9px 10px; border: 1px solid #ddd;
-    border-radius: 8px; font-size: 14px; margin-bottom: 12px;
-  }
-  .lab { 
-    display: block; font-size: 13px; color: #666; margin-bottom: 4px; text-align: left;
-  }
-</style>
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 24px;
     background-color: #061a2f;
     background-image:
-        linear-gradient(rgba(0,255,255,.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,255,.12) 1px, transparent 1px);
+      linear-gradient(rgba(0,255,255,.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.12) 1px, transparent 1px);
     background-size: 20px 20px;
+    font-family: Arial, sans-serif;
     color: #eee;
-}
+  }
 
-.salle {
-    position: relative;
-    width: 700px;
-    height: 480px;
-    border: 3px solid rgba(0,255,255,.6);
-    box-shadow: 0 0 40px rgba(0,255,255,.6);
-}
-
-.zone {
-    position: absolute;
-    background: rgba(45,0,80,.9);
-    border: 2px solid #b388ff;
-    border-radius: 14px;
-    box-shadow: 0 0 18px rgba(179,136,255,.6);
+  .card {
+    width: 100%;
+    max-width: 360px;
+    background: rgba(7, 24, 44, .88);
+    border: 2px solid rgba(0,255,255,.35);
+    box-shadow: 0 0 30px rgba(0,255,255,.18);
+    border-radius: 24px;
+    padding: 32px;
+    backdrop-filter: blur(4px);
     text-align: center;
-    padding: 14px;
-}
+  }
+  .card h2 {
+    font-size: 26px;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: .2px;
+  }
 
-.entree { left: 40px; bottom: 60px; width: 130px; height: 100px; }
-.sortie { right: 40px; bottom: 60px; width: 130px; height: 100px; }
-.total { top: 60px; left: 50%; transform: translateX(-50%); width: 200px; height: 130px; }
+  #count {
+    font-size: 92px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin: 20px 0 24px;
+    text-shadow: 0 0 18px rgba(0,210,255,.22);
+  }
 
-.count {
-    font-size: 56px;
-    font-weight: bold;
-}
-
-button {
-    font-size: 24px;
-    padding: 8px 16px;
+  .btn-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  button {
     border: none;
-    border-radius: 10px;
+    border-radius: 14px;
     cursor: pointer;
-    background: #b388ff;
-}
+    font-size: 16px;
+    padding: 12px 18px;
+    transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+  }
+  button:hover  { transform: translateY(-1px); opacity: .95; }
+  button:active { transform: scale(.98); }
+  .btn-plus  {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    font-size: 26px;
+    padding: 12px 24px;
+    box-shadow: 0 10px 25px rgba(34,197,94,.25);
+  }
+  .btn-moins {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fff;
+    font-size: 26px;
+    padding: 12px 24px;
+    box-shadow: 0 10px 25px rgba(239,68,68,.25);
+  }
+  .btn-main  {
+    background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(58,123,213,.35);
+  }
+  .btn-ghost {
+    background: rgba(255,255,255,.08);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.18);
+  }
 
-/* HISTORIQUE */
-.history {
-    position: fixed;
-    top: 20px;
-    width: 250px;
-    max-height: 90vh;
+  select,
+  .input,
+  #form-add input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(0,255,255,.18);
+    font-size: 15px;
+    cursor: pointer;
+    color: #fff;
+    background: rgba(255,255,255,.06);
+    margin-bottom: 10px;
+  }
+
+  #form-add, #form-add-esp { margin-top: 16px; text-align: left; }
+  #form-add label,
+  .lab {
+    display: block;
+    font-size: 13px;
+    color: #d9f9ff;
+    margin-bottom: 6px;
+    text-align: left;
+  }
+
+  #form-msg,
+  #form-msg-esp {
+    margin-top: 10px;
+    font-size: 13px;
+    min-height: 20px;
+  }
+  .msg-ok  { color: #86efac; }
+  .msg-err { color: #fca5a5; }
+
+  #log-wrap {
+    margin-top: 16px;
+    max-height: 220px;
     overflow-y: auto;
-    padding: 15px;
-    border-radius: 10px;
-    background: rgba(0,150,255,0.25);
-    border: 2px solid rgba(0,200,255,0.6);
-}
+    text-align: left;
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 10px;
+  }
+  .log-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    font-size: 13px;
+  }
+  .log-date { color: #8fb3c9; font-size: 11px; flex: 0 0 auto; margin-right: 8px; }
+  .log-val  { font-weight: 700; color: #d9f9ff; }
+  .empty    { color: #9fb6c9; text-align: center; padding: 10px 0; font-size: 13px; }
 
-.history-left { left: 20px; }
-.history-right { right: 20px; }
+  @media (max-width: 980px) {
+    body { gap: 18px; }
+    .card { max-width: 420px; }
+  }
 </style>
 </head>
 <body>
@@ -269,8 +275,7 @@ button {
   <h2>Ajouter un compteur</h2>
   <div id="form-add-esp" style="display:none">
     <label class="lab">id du compteur</label>
-    <input class="input" id="f-name-esp" type="number" min="1" placeholder="Ex : 1">
-
+    <input class="input" id="f-name-esp" type="text" min="1" placeholder="Ex : AA:BB:CC:DD:EE:FF">
     <label class="lab">id de la salle</label>
     <input class="input" id="f-id-esp" type="number" min="1" placeholder="Ex : 1">
 

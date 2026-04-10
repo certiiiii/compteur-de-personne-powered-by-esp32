@@ -27,45 +27,109 @@ if (isset($_GET["passwd"]) && isset($_GET["username"])) {
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connexion</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
       font-family: Arial, sans-serif;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      background-color: #061a2f;
+      background-image:
+        linear-gradient(rgba(0,255,255,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,.12) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: #eee;
+      padding: 24px;
     }
-    .card {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      width: 320px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    .panel {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(7, 24, 44, .88);
+      border: 2px solid rgba(0,255,255,.35);
+      box-shadow: 0 0 30px rgba(0,255,255,.18);
+      border-radius: 24px;
+      padding: 36px;
+      backdrop-filter: blur(4px);
     }
-    .card h1 { margin-bottom: 24px; color: #333; }
-    .card label { display: block; text-align: left; font-size: 14px; color: #555; margin-bottom: 4px; }
-    .card input {
-      width: 100%; padding: 10px; border: 1px solid #ddd;
-      border-radius: 8px; font-size: 15px; margin-bottom: 16px;
+    .brand {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      color: #fff;
+      font-size: 32px;
+    }
+    .subtitle {
+      margin: 0 0 24px;
+      color: #c7d7e8;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    label {
+      display: block;
+      text-align: left;
+      font-size: 14px;
+      color: #d9f9ff;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid rgba(0,255,255,.18);
+      border-radius: 14px;
+      font-size: 15px;
+      margin-bottom: 16px;
       box-sizing: border-box;
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      outline: none;
     }
-    .card button {
-      width: 100%; padding: 12px;
-      background: #667eea; color: white;
-      border: none; border-radius: 10px;
-      font-size: 16px; cursor: pointer;
+    input::placeholder { color: #8fb3c9; }
+    input:focus {
+      border-color: rgba(0,210,255,.65);
+      box-shadow: 0 0 0 3px rgba(0,210,255,.14);
     }
-    .card button:hover { opacity: 0.88; }
-    #msg { margin-top: 14px; font-size: 14px; color: #c62828; }
+    button {
+      width: 100%;
+      text-align: center;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 16px;
+      transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+      color: white;
+      box-shadow: 0 10px 25px rgba(58,123,213,.35);
+    }
+    button:hover {
+      transform: translateY(-1px);
+      opacity: .95;
+    }
+    #msg {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #ff9f9f;
+      min-height: 20px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-<div class="card">
+<div class="panel">
+  <div class="brand">Esp Présence</div>
   <h1>Connexion</h1>
+  <p class="subtitle">Accès à l’interface d’administration du compteur de présence.</p>
+
   <label>Identifiant</label>
   <input id="username" type="text" placeholder="Votre login">
   <label>Mot de passe</label>
@@ -90,7 +154,7 @@ function connection() {
     .then(r => r.text())
     .then(result => {
       if (result.trim() === "ok") {
-        window.location.href = "admin3.php";   // ← JS redirect, not PHP header()
+        window.location.href = "admin3.php";
       } else {
         msg.textContent = "Identifiant ou mot de passe incorrect.";
       }

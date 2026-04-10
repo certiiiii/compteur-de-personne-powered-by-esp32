@@ -85,73 +85,96 @@ $nbPersonnes = $result->fetchColumn();
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Compteur de présence</title>
 
 <style>
+* { box-sizing: border-box; }
 body {
     margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    background-color: #061a2f;
+    background-image:
+        linear-gradient(rgba(0,255,255,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,.12) 1px, transparent 1px);
+    background-size: 20px 20px;
     font-family: Arial, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #eee;
+    padding: 24px;
 }
-
+.wrapper {
+    width: 100%;
+    max-width: 420px;
+}
 .card {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
+    width: 100%;
+    background: rgba(7, 24, 44, .88);
+    border: 2px solid rgba(0,255,255,.35);
+    box-shadow: 0 0 30px rgba(0,255,255,.18);
+    border-radius: 24px;
+    padding: 32px;
     text-align: center;
-    width: 320px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    backdrop-filter: blur(4px);
 }
-
+.card h1 {
+    margin: 0 0 18px;
+    color: #fff;
+    font-size: 30px;
+}
 .count {
-    font-size: 80px;
+    font-size: 92px;
     font-weight: bold;
-    margin: 20px 0;
-    color: #667eea;
+    margin: 20px 0 24px;
+    color: #fff;
+    text-shadow: 0 0 18px rgba(0,210,255,.22);
 }
-
 .buttons button {
     font-size: 24px;
     padding: 15px 25px;
     margin: 10px;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
 }
 select {
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 16px;
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.18);
+    font-size: 15px;
+    background: rgba(255,255,255,.08);
+    color: #fff;
 }
 #log {
-    margin: 20px auto;
-    padding: 10px;
+    margin: 16px auto 0;
+    padding: 10px 0 0;
     max-height: 220px;
     overflow-y: auto;
     width: 100%;
     text-align: left;
     font-size: 14px;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid rgba(255,255,255,.1);
 }
-
-
-
-.plus { background: #4CAF50; color: white; }
-.moins { background: #f44336; color: white; }
-
-.buttons button:hover {
-    opacity: 0.85;
+#log div {
+    padding: 8px 0;
 }
+#log hr {
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,.08);
+}
+.plus { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
+.moins { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+.buttons button:hover { opacity: 0.92; }
 </style>
 </head>
 
 <body>
 
+<div class="wrapper">
 <div class="card">
     <h1>👥 Présence</h1>
 
@@ -171,7 +194,8 @@ select {
     <option value="show">Afficher l'historique</option>
 </select>
 
-<div id="log" style="display:none; margin-top:20px; max-height:200px; overflow:auto; text-align:left;"></div>
+<div id="log" style="display:none;"></div>
+</div>
 
 
 
