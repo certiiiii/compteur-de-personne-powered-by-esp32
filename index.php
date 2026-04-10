@@ -151,7 +151,7 @@ body {
         <section class="panel">
             <div class="logo-wrap">
                 <div class="logo">
-                    <img src="a_flat_two_color_vector_logo_design_in_blue_shade.png" alt="Logo Esp Présence">
+                    <img src="logo.png" alt="Logo Esp Présence">
                 </div>
                 <div class="brand">Esp Présence</div>
             </div>
